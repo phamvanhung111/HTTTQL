@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Table } from 'react-bootstrap';
-import NavigationBar from '../NavigationBar/NavigationBar';
-import { format } from 'date-fns';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Table } from "react-bootstrap";
+import NavigationBar from "../NavigationBar/NavigationBar";
+import { format } from "date-fns";
 
 const OrderDetail = () => {
   const [orderData, setOrderData] = useState(null);
@@ -12,16 +12,19 @@ const OrderDetail = () => {
   useEffect(() => {
     const fetchOrderDetail = async () => {
       try {
-        const token = localStorage.getItem('access_token');
-        const response = await axios.get(`http://127.0.0.1:8000/api/getOrderDetail/${orderId}/`, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const token = localStorage.getItem("access_token");
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/getOrderDetail/${orderId}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        }); // Thay đổi ID của đơn hàng tại đây nếu cần
+        ); // Thay đổi ID của đơn hàng tại đây nếu cần
         setOrderData(response.data);
-        console.log(orderData)
+        console.log(orderData);
       } catch (error) {
-        console.error('Error fetching order detail:', error);
+        console.error("Error fetching order detail:", error);
       }
     };
 
@@ -47,7 +50,12 @@ const OrderDetail = () => {
               {orderData.data.map((item, index) => (
                 <tr key={index}>
                   <td>{item.name}</td>
-                  <td><img src={`http://127.0.0.1:8000/media/${item.img}`} style={{ width: '50px', height: '50px' }} /></td>
+                  <td>
+                    <img
+                      src={`http://127.0.0.1:8000/media/${item.img}`}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  </td>
                   <td>{item.quantity}</td>
                   <td>{item.price}</td>
                 </tr>
@@ -55,7 +63,9 @@ const OrderDetail = () => {
             </tbody>
           </Table>
           <div>
-            <p>Time: {format(new Date(orderData.order.time), "HH:mm dd/MM/yyyy")}</p>
+            <p>
+              Time: {format(new Date(orderData.order.time), "HH:mm dd/MM/yyyy")}
+            </p>
             <p>Total Price: {orderData.order.total_price}</p>
           </div>
         </div>

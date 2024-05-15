@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+.bg-login{
+  background: linear-gradient(to right, #3ca27d, #2c71d5);
+}
+.w-450{
+  width: 450px;
+}
+.grid-3{
+  display: grid !important;
+  grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}

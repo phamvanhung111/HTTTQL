@@ -6,21 +6,30 @@
     display: flex;
     align-items: center;
     color: white;
-    background-color: #1250DC;
-    border-radius: 50px;
+    background-color: #75b798;
+    border-radius: 5px;
     padding: 10px 15px;
 }
-
+.link-cart:hover{
+    opacity: 0.8;
+}
 .link-cart h6{
     padding-left: 8px;
 }
 
 .navbar-user{
     background-color: white;
-    border-radius: 50px;
+    border-radius: 5px;
     padding: 0 8px;
     color: #1250DC;
     font-weight: bold;
 }
+.navbar-user:hover{
+    background-color: #75b798;
+}
+.navbar-user:hover .nav-link{
+    color: #fff;
+}
+
 
 
