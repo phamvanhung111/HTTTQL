@@ -9,22 +9,24 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 fake = Faker()
 
+cursor.execute("DELETE FROM app_order_Product")
+cursor.execute("DELETE FROM app_Product")
 # Generate and insert approximately 200 records for Product
-for i in range(200):
+for i in range(0, 200):
     name = f"ProductName{i}"
     description = f"Description{i}"
     quantity = random.randint(400, 3000)
     category_id = random.randint(1, 10)
-    img = f"img/anh{random.randint(1,21)}.JPG"
+    img = f"anh/anh{random.randint(1,70)}.JPG"
 
     # Generate import_price and buy_price divisible by 1000
     base_price = (
-        random.randint(100, 600) * 1000
+        random.randint(30, 600) * 100000
     )  # Random integer between 100,000 and 600,000
-    import_price = int(base_price / 1000.0)
+    import_price = int(base_price / 100000.0)
     buy_price = (
         import_price + random.randint(20, 100)
-    ) * 1000.0  # Add random amount, ensuring divisibility by 1000
+    ) * 100000.0  # Add random amount, ensuring divisibility by 1000
 
     type_of_user_id = random.randint(1, 10)
 

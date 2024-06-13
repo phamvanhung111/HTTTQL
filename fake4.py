@@ -19,13 +19,12 @@ def random_date(start_date, end_date):
 
 # Generate fake data
 fake = Faker()
-
 # Query to fetch user IDs from UserProfile table
 cursor.execute("SELECT id FROM app_UserProfile")
 user_ids = [row[0] for row in cursor.fetchall()]
 
 # Generate and insert orders for each user
-i = 2
+i = 1
 for user_id in user_ids:
     num_orders = random.randint(15, 20)
     for _ in range(num_orders):

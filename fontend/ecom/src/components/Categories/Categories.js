@@ -74,9 +74,9 @@ function Categories({ onCategoryClick, onTypeClick, onPriceRangeClick }) {
     };
 
     return (
-        <div style={{backgroundColor: "#ffffff", padding:"10px 20px", borderRadius:"20px"}}>
+        <div style={{ backgroundColor: "#ffffff", padding: "10px 20px", borderRadius: "20px" }}>
             <h5>Bộ lọc nâng cao</h5>
-            <h6 style={{paddingTop:"10px" , borderTop:"1px solid"}}>Danh mục sản phẩm</h6>
+            <h6 style={{ paddingTop: "10px", borderTop: "1px solid" }}>Danh mục sản phẩm</h6>
             <Form>
                 {categories.map(category => (
                     <Form.Check
@@ -90,26 +90,26 @@ function Categories({ onCategoryClick, onTypeClick, onPriceRangeClick }) {
                 ))}
             </Form>
 
-            <h6 style={{paddingTop:"10px", borderTop:"1px solid"}}>Đối tượng sản phẩm</h6>
+            <h6 style={{ paddingTop: "10px", borderTop: "1px solid" }}>Đối tượng sản phẩm</h6>
             <Form>
                 {types.map(type => (
-                <FormCheck 
-                    key={type.id}
-                    type="checkbox"
-                    id={type.id}
-                    label={type.name}
-                    checked={selectedType === type.id}
-                    onChange={() => handleClickType(type.id)}
+                    <FormCheck
+                        key={type.id}
+                        type="checkbox"
+                        id={type.id}
+                        label={type.name}
+                        checked={selectedType === type.id}
+                        onChange={() => handleClickType(type.id)}
                     />
                 ))}
             </Form>
-           
-            <h6 style={{paddingTop:"10px", borderTop:"1px solid"}}>Giá bán</h6>
+
+            <h6 style={{ paddingTop: "10px", borderTop: "1px solid" }}>Giá bán</h6>
             <ul className='p-0 m-0'>
-                <li className='select-price' onClick={() => handlePriceRangeClick('under_100000')}>Dưới 100.000đ</li>
-                <li className='select-price' onClick={() => handlePriceRangeClick('100000_to_300000')}>100.000đ đến 300.000đ</li>
-                <li className='select-price' onClick={() => handlePriceRangeClick('300000_to_500000')}>300.000đ đến 500.000đ</li>
-                <li className='select-price' onClick={() => handlePriceRangeClick('over_500000')}>Trên 500.000đ</li>
+                <li className='select-price' onClick={() => handlePriceRangeClick('under_10000000')}>Dưới 10.000.000đ</li>
+                <li className='select-price' onClick={() => handlePriceRangeClick('10000000_to_30000000')}>10.000.000đ đến 30.000.000đ</li>
+                <li className='select-price' onClick={() => handlePriceRangeClick('30000000_to_50000000')}>30.000.000đ đến 50.000.000đ</li>
+                <li className='select-price' onClick={() => handlePriceRangeClick('over_50000000')}>Trên 50.000.000đ</li>
             </ul>
         </div>
     );

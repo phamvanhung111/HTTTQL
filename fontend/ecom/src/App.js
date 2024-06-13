@@ -10,6 +10,7 @@ import Order from './components/Order';
 import Admin from './components/Admin';
 import HistoryOrders from './components/HistoryOrders/HistoryOrders';
 import OrderDetail from './components/OrderDetail/OrderDetail';
+import ExportWordFromTemplate from './components/ExportWordFromTemplate';
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path="/product/:id" element={<DetailProduct />} />
         <Route path='/cart' element={<Order />}></Route>
-        <Route path="/admin" element={<Admin />}/>
-        <Route path="/getHistoryOrders" element={<HistoryOrders/>}></Route>
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/getHistoryOrders" element={<HistoryOrders />}></Route>
         <Route path="/orderDetail/:orderId" element={<OrderDetail />} />
+        <Route path="/template" element={<ExportWordFromTemplate />} />
       </Routes>
     </BrowserRouter>
   );

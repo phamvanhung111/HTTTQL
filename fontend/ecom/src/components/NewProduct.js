@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function NewProduct() {
-  const [formData, setFormData] = useState({
+  const initialFormState = useState({
     name: "",
     description: "",
     quantity: "",
@@ -13,8 +13,10 @@ function NewProduct() {
     type_of_user: "",
   });
 
+  const [formData, setFormData] = useState(initialFormState);
   const [categories, setCategories] = useState([]);
   const [types, setTypes] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +64,10 @@ function NewProduct() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const resetForm = () => {
+    setFormData(initialFormState);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -85,7 +91,8 @@ function NewProduct() {
         }
       );
       console.log(response.data);
-      // Handle success, e.g., display success message
+      setSuccessMessage('Product created successfully!');
+      resetForm(); // Reset the form after successful submission
     } catch (error) {
       console.error("Error creating product:", error);
       // Handle error, e.g., display error message
@@ -95,6 +102,7 @@ function NewProduct() {
   return (
     <div className="container">
       <h2>Create New Product</h2>
+      {successMessage && <div className="alert alert-success" role="alert">{successMessage}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-1">
           <label htmlFor="name" className="form-label">

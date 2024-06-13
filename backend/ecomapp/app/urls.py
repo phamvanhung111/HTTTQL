@@ -20,4 +20,5 @@ urlpatterns = [
     path("getOrderDetail/<str:id>/", views.getOrderDetail, name="getOrderDetail"),
     path("getByPrice/", views.getByPrice, name="getByPrice"),
     path("viewReport/", views.viewReport, name="viewReport"),
+    path("kpi/", views.kpi, name="kpi"),
 ]
