@@ -3,6 +3,8 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [email, setEmail] = useState(""); // Thay đổi tên state thành 'email'
@@ -12,7 +14,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      console.log("111111111111111111");
+      // toast.success("Đăng nhập thành công");
       const response = await axios.post(
         "http://127.0.0.1:8000/api/login_user/",
         {
@@ -26,14 +28,16 @@ function Login() {
       if (data && data.access_token) {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("is_staff", data.user_data["is_staff"]);
-
         let access_token = localStorage.getItem("access_token");
         const is_staff = localStorage.getItem("is_staff");
         if (access_token) {
           if (is_staff === "true") {
             navigate("/admin");
+            // toast.success("Đăng nhập thành công");
+            // console.log("1");
           } else {
             navigate("/");
+            // toast.error("Tài KHoản hoặc mật khẩu không chính xác");
           }
         }
       } else {
@@ -42,7 +46,8 @@ function Login() {
       }
     } catch (error) {
       // Xử lý lỗi nếu có lỗi xảy ra khi gửi yêu cầu
-      console.error("Error during login:", error);
+      // console.error("Error during login:", error);
+      toast.error("Tài khoản hoặc mật khẩu không chính xác");
       setError("Đã xảy ra lỗi khi đăng nhập");
     }
   };
@@ -101,6 +106,17 @@ function Login() {
           </Link>
         </p>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Signup() {
   const navigate = useNavigate();
@@ -37,11 +39,13 @@ function Signup() {
         }
       );
       console.log("Registration successful:", response.data);
+      // toast.success("Đăng ký thành công");
       navigate("/login");
       // Redirect or show success message
     } catch (error) {
-      console.error("Registration error:", error.response.data);
+      // console.error("Registration error:", error.response.data);
       // Handle registration error (e.g., show error message)
+      toast.error("Email đã bị trùng hoặc sai thông tin vui lòng kiểm tra lại");
     }
   };
 
@@ -116,6 +120,18 @@ function Signup() {
           </p>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

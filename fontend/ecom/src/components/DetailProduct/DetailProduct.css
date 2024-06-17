@@ -7,3 +7,6 @@
 .ctn-card{
     margin: 20px 0;
 }
+#hvclx:hover{
+    color: var(--bs-btn-hover-border-color);
+}

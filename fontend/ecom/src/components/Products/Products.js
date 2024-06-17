@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, Container, Row, Col, Button } from "react-bootstrap";
+import { Card, Container, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../style.css";
 import "./Products.css";
@@ -10,9 +10,7 @@ function Products({ categoryId, typeId, minPrice, maxPrice }) {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  useEffect(() => {
-    console.log("totalPages:", totalPages);
-  }, [totalPages]);
+  const productsPerPage = 15;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,7 +38,7 @@ function Products({ categoryId, typeId, minPrice, maxPrice }) {
         });
 
         setProducts(response.data);
-        setTotalPages(response.data.total_pages); // Set totalPages
+        setTotalPages(Math.ceil(response.data.length / productsPerPage));
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -50,7 +48,6 @@ function Products({ categoryId, typeId, minPrice, maxPrice }) {
   }, [categoryId, typeId, minPrice, maxPrice]);
 
   const handleProductClick = (product_id) => {
-    console.log(product_id);
     navigate(`/product/${product_id}`);
   };
 
@@ -65,9 +62,31 @@ function Products({ categoryId, typeId, minPrice, maxPrice }) {
     });
     setProducts(sortedProducts);
   };
+
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+  // Get current products based on page
+  const indexOfLastProduct = page * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
   return (
     <Container>
       <div className="sort mb-3">
@@ -94,7 +113,7 @@ function Products({ categoryId, typeId, minPrice, maxPrice }) {
         </div>
       </div>
       <Row className="grid-3">
-        {products.map((product) => (
+        {currentProducts.map((product) => (
           <div
             className="p-1"
             key={product.product_id}
@@ -132,21 +151,22 @@ function Products({ categoryId, typeId, minPrice, maxPrice }) {
           </div>
         ))}
       </Row>
-      <div className="pagination-container">
-        <Button
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        >
-          Previous
+      <div className="pagination d-flex justify-content-center align-items-center">
+        <Button onClick={handlePreviousPage} disabled={page === 1}>
+          Trước
         </Button>
-        <span>
-          Page {page} of {totalPages}
-        </span>
-        <Button
-          onClick={() => handlePageChange(page + 1)}
-          disabled={page === totalPages}
-        >
-          Next
+        {Array.from({ length: totalPages }, (_, i) => (
+          <Button
+            key={i + 1}
+            onClick={() => handlePageChange(i + 1)}
+            className={i + 1 === page ? "active" : ""}
+            id="hvclx"
+          >
+            {i + 1}
+          </Button>
+        ))}
+        <Button onClick={handleNextPage} disabled={page === totalPages}>
+          Tiếp
         </Button>
       </div>
     </Container>
